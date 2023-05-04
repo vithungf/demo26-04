@@ -16,8 +16,6 @@ class ProductController {
         // json/xml
         res.status(200).json(listProduct)
     }
-
-
     addProduct = async (req: Request, res: Response) => {
         await this.productService.add(req.body);
         if (!req.body.name) {

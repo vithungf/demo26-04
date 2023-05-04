@@ -34,7 +34,7 @@ function getList() {
     <header class="masthead bg-primary text-white text-center">
         <div class="container d-flex align-items-center flex-column">
             <!-- Masthead Avatar Image-->
-            <img class="masthead-avatar mb-5" src="assets/img/avataaars.svg" alt="..."/>
+            <img class="masthead-avatar mb-5" src="/img/avataaars.svg" alt="..."/>
             <!-- Masthead Heading-->
             <h1 class="masthead-heading text-uppercase mb-0">Start Bootstrap</h1>
             <!-- Icon Divider-->
@@ -224,10 +224,9 @@ function getList() {
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>`
-            let productHtml = '';
+            let productHtml = '<div class="row justify-content-center">';
             products.map(product => {
                 productHtml += `
-                <div class="row justify-content-center">
                 <!-- Portfolio Item 1-->
                 <div class="col-md-6 col-lg-4 mb-5">
                     <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
@@ -245,9 +244,9 @@ function getList() {
                       </div>               
                         
                       </div>
-                </div>
-                <hr>`
+                `
             });
+            productHtml+= '\n                </div>'
             html = html.replace('{toAdd}', productHtml)
             $('#body').html(html)
         }
@@ -263,7 +262,7 @@ function formAdd() {
     <input type="text" id="category" placeholder="category">
     <button onclick="create()">add</button> `;
     $('#body').html(html)
-}8
+}
 
 function create() {
     let name = $('#name').val()
@@ -351,3 +350,10 @@ function update(id) {
         }
     })
 }
+function btn(){
+    let html = `<button type="button" class="btn btn-success" onclick="getList()">list</button>
+                <button type="button" class="btn btn-secondary  " onclick="formAdd()">create</button>`
+    ${'#body'}.html(html)
+
+}
+

@@ -6,17 +6,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const userService_1 = __importDefault(require("../service/userService"));
 class UserController {
     constructor() {
-        this.showFormLogin = async (req, res) => {
-            res.render('users/login');
-        };
-        this.login = async (req, res) => {
-            let user = await this.userService.checkUser(req.body);
-            if (!user) {
-                res.redirect(301, '/users/login');
+        this.signup = async (req, res) => {
+            let user = req.body;
+            console.log(req.body);
+            let userCheck = await this.userService.checkUserSignup(req.body);
+            if (userCheck) {
+                res.status(200).json('Đã có tài khoản');
             }
             else {
-                req.session['user'] = user;
-                res.redirect(301, '/products');
+                let newUser = await this.userService.createNewUser(user);
+                res.status(200).json('Tạo thành công');
+            }
+        };
+        this.login = async (req, res) => {
+            let user = await this.userService.checkUserLogin(req.body);
+            if (!user) {
+                res.status(200).json('Tai khoan khong ton tai');
+            }
+            else {
+                if (user.username === 'admin' && user.password === 'admin') {
+                    res.status(200).json('admin');
+                }
+                else {
+                    res.status(200).json('user');
+                }
             }
         };
         this.userService = userService_1.default;
